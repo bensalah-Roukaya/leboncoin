@@ -31,6 +31,7 @@ class NewOfferController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.borderStyle = .roundedRect
+        textField.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         textField.font = UIFont.systemFont(ofSize: 14)
         return textField
     }()
@@ -39,6 +40,7 @@ class NewOfferController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "category"
         textField.borderStyle = .roundedRect
+        textField.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         textField.font = UIFont.systemFont(ofSize: 14)
         return textField
     }()
@@ -47,6 +49,7 @@ class NewOfferController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "city"
         textField.borderStyle = .roundedRect
+        textField.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         textField.font = UIFont.systemFont(ofSize: 14)
         return textField
     }()
@@ -55,6 +58,7 @@ class NewOfferController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "description"
         textField.borderStyle = .roundedRect
+        textField.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         textField.font = UIFont.systemFont(ofSize: 14)
         return textField
     }()
@@ -63,6 +67,7 @@ class NewOfferController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "price"
         textField.borderStyle = .roundedRect
+        textField.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         textField.font = UIFont.systemFont(ofSize: 14)
         return textField
     }()
@@ -72,7 +77,7 @@ class NewOfferController: UIViewController {
         button.setTitle("Create", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 5
-        button.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 0/255, alpha: 0.8)
+        button.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 0/255, alpha: 0.5)
         button.addTarget(self, action: #selector(handleOffer), for: .touchUpInside)
         return button
     }()
@@ -98,6 +103,19 @@ class NewOfferController: UIViewController {
         
         createButton.anchor(top: priceTF.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, width: 0, height: 50)
         
+    }
+    
+    @objc func handleTextChange() {
+        let formValid = titleTF.text?.isEmpty == false && categoryTF.text?.isEmpty == false && cityTF.text?.isEmpty == false
+        && descTF.text?.isEmpty == false && priceTF.text?.isEmpty == false
+        
+        if formValid {
+            createButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 0/255, alpha: 1)
+            createButton.isEnabled = true
+        } else {
+            createButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 0/255, alpha: 0.5)
+            createButton.isEnabled = false
+        }
     }
     
     @objc func handleOffer() {
